@@ -12,7 +12,7 @@ public class TravelogController {
 	@GetMapping("test")
     public String textBasic(Model model) {
         model.addAttribute("data", "이제부터 타임리프로 사용하세요!");
-        return "travelog/travelog";
+        return "travelog/travelog";  
     }
 	
 }
