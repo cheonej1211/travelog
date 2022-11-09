@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Travelog</title>
+    <link rel="stylesheet" type="text/css" th:href="'/resources/style.css'"/>
+</head>
+<body>
+	<div class="wrap">
+	    <h1 th:text="${title}">알 수 없음</h1>
+	    <div class="content-box">
+	        <form name="memberForm" id="memberForm" action="/member/join" method="post" th:object="${questDTO}">
+	            Type<br>
+	            <select name="questType">
+	                <option value="0">Subject</option>
+	                <option value="1">Answer</option>
+	                <option value="2">Keyword</option>
+	            </select>
+	            Name<br>
+	            <input type="text" th:field="*{questName}"/>
+	            <p th:if="${#fields.hasErrors('questName')}" th:errors="*{questName}">Incorrect data!</p>
+	            Contents<br>
+	            <input type="text" th:field="*{questContents}"/>
+	            <br>
+	            <input type="submit" value="save">
+	        </form>
+	    </div>
+	</div>
+</body>
+</html>
