@@ -45,7 +45,8 @@ public class SecurityConfig {
 		  http.headers().frameOptions().disable(); http.httpBasic().disable()
 		  .csrf().disable()
 		  .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		  .and() .authorizeRequests() .antMatchers("/login", "/member/join").permitAll()
+		  //.and() .authorizeRequests() .antMatchers("/login", "/member/join").permitAll()
+		  .and() .authorizeRequests() .antMatchers("/**").permitAll()
 		  .antMatchers("/admin/**").hasRole("ADMIN").anyRequest().authenticated()
 		  .and()
 		  .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),

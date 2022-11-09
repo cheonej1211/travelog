@@ -32,9 +32,10 @@ public class LoginController {
 	private final String TITLE = "로그인";
 
 	@GetMapping("/sec")
-	public String sec() {
+	public String sec(Model model) {
 		log.info("성공");
-		return "시큐리티 테스트";
+		model.addAttribute("title", TITLE);
+		return "travelog/security_test";
 	}
 	
 	@GetMapping("/login")
