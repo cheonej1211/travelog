@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -32,30 +33,24 @@ public class SecurityConfig {
 	 * @Bean public HttpFirewall DefaultHttpFirewall() { return new
 	 * DefaultHttpFirewall(); }
 	 */
+	@Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().mvcMatchers("/resources/**","/static/**","/css/**","/js/**");
+    }
 	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable();
-		http.headers().frameOptions().disable();
-		http.httpBasic().disable()
-				.csrf().disable()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				.and()
-				.authorizeRequests()
-				.antMatchers("/login", "/member/join", "/travelog/**").permitAll()
-				/*
-				 * .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).
-				 * permitAll()
-				 * .antMatchers("/resources/**","/static/**","/css/**","/js/**").permitAll()
-				 */
-				/*
-				 * .mvcMatchers( "/resources/**","/static/**","/css/**","/js/**" ).permitAll()
-				 */
-				.antMatchers("/admin/**").hasRole("ADMIN").anyRequest().authenticated()
-				.and()
-				.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
-						UsernamePasswordAuthenticationFilter.class)
-				.authorizeRequests();
+		
+		  http.headers().frameOptions().disable(); http.httpBasic().disable()
+		  .csrf().disable()
+		  .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		  .and() .authorizeRequests() .antMatchers("/login", "/member/join").permitAll()
+		  .antMatchers("/admin/**").hasRole("ADMIN").anyRequest().authenticated()
+		  .and()
+		  .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
+				UsernamePasswordAuthenticationFilter.class)
+		  .authorizeRequests();
 		return http.build();
 	}
 	
