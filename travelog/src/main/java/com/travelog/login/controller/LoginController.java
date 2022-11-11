@@ -51,6 +51,7 @@ public class LoginController {
 			Errors errors, BindingResult bindingResult, HttpServletResponse response) throws IllegalArgumentException{
 
 		Member member = memberRepository.findByLoginId(loginDTO.getLoginId()).orElse(null);
+		
     	if (member == null) {
     		bindingResult.rejectValue("loginId", "key","아이디가 존재하지 않습니다.");		
 		}else {
@@ -72,11 +73,7 @@ public class LoginController {
             
             return "redirect:/sec";
         }
-        
-        
-		
-	}
 
-	
+	}
 
 }

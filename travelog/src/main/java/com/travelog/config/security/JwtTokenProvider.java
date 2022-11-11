@@ -1,10 +1,12 @@
 package com.travelog.config.security;
 //import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import java.security.Key;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +29,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Component
 public class JwtTokenProvider {
+	
+	public static final String TOKEN_NAME = "token";
 	
 	//private String secretKey = "약오르지까꿍꿍까지르오약약오르지까꿍꿍까지르오약약오르지까꿍꿍까지르오약";
 	@Value("${jwt.secret}")
@@ -76,9 +80,16 @@ public class JwtTokenProvider {
 		return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().getSubject();
 	}
 
-	// Request의 Header에서 token 값을 가져옵니다. "X-AUTH-TOKEN" : "TOKEN값'
+	// cookie에서 토큰 정보 가져오기
 	public String resolveToken(HttpServletRequest request) {
-		return request.getHeader("authorization");
+		String token = "";
+		if (request.getCookies() != null) {
+			token = Arrays.stream(request.getCookies())
+			        .filter(cookie -> cookie.getName().equals(JwtTokenProvider.TOKEN_NAME))
+			        .findFirst().map(Cookie::getValue)
+			        .orElse("");
+		}
+		return token;
 	}
 
 	// 토큰의 유효성 + 만료일자 확인
