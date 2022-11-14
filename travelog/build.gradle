@@ -40,7 +40,10 @@ dependencies {
 	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
 	// 새로고침
 	compileOnly("org.springframework.boot:spring-boot-devtools")
+	// 타임리프 탬플릿 사용
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+	// security oauth(소셜로그인 사용)
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 }
 
 ext['spring-security.version']='5.7.3'

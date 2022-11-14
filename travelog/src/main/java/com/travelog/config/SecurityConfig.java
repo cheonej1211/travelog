@@ -10,6 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.travelog.config.oAuth.OAuthService;
 import com.travelog.config.security.JwtAuthenticationFilter;
 import com.travelog.config.security.JwtTokenProvider;
 
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfig {
 
 	private final JwtTokenProvider jwtTokenProvider;
+	private final OAuthService oAuthService;
 
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
@@ -51,9 +53,17 @@ public class SecurityConfig {
 
 				.and().formLogin().loginPage("/login").loginProcessingUrl("/sec")
 				.failureUrl("/login?error=true")
+				
+				.and()
+                .oauth2Login() //OAuth2 로그인 설정 시작점
+                .defaultSuccessUrl("/oauth/loginInfo", true) //OAuth2 성공시 redirect
+                .userInfoEndpoint() //OAuth2 로그인 성공 이후 사용자 정보를 가져올 때 설정 담당
+                .userService(oAuthService) //OAuth2 로그인 성공 시, 작업을 진행할 
 
-				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/login")
-				.deleteCookies(JwtTokenProvider.TOKEN_NAME);
+		/*
+		 * .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login")
+		 * .deleteCookies(JwtTokenProvider.TOKEN_NAME)
+		 */;
 		return http.build();
 	}
 

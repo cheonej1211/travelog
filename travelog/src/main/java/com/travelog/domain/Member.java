@@ -58,6 +58,7 @@ public class Member implements UserDetails{
     List<TravelMaster> travelMaster = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     private MemberRole role; //USER, ADMIN
+    private String provider; //NAVER, KAKAO, GOOGLE
     
     
     /*
@@ -105,7 +106,7 @@ public class Member implements UserDetails{
 	 */
 	@Builder
     public Member(String loginId, String loginPw, String name, String nick, String mobile, String email, String birth
-    		,Gender gender, MemberStatus memberStatus, MemberRole role, EntityInfo entityInfo, LocalDateTime lastLogin, int agree ) {
+    		,Gender gender, MemberStatus memberStatus, MemberRole role, EntityInfo entityInfo, LocalDateTime lastLogin, int agree, String provider) {
         this.loginId = loginId;
         this.loginPw = loginPw;
         this.name = name;
@@ -119,6 +120,7 @@ public class Member implements UserDetails{
         this.entityInfo = entityInfo;
         this.lastLogin = lastLogin;
         this.agree = agree;
+        this.provider = provider;
     }
 
     public static Member createMember(MemberDTO newMember, PasswordEncoder passwordEncoder) {
