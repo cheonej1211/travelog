@@ -76,7 +76,7 @@ public class Member implements UserDetails{
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return null;
+		return loginId;
 	}
 	@Override
 	public boolean isAccountNonExpired() {

@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Travelog</title>
-    <link rel="stylesheet" type="text/css" th:href="'/css/style.css'"/>
-</head>
-<body>
-	<div class="wrap">
-	    <h1 th:text="${title}" id="title">알 수 없음</h1>
-	    <div class="content-box">
-	        <form name="loginForm" id="loginForm" action="/login" method="post" th:object="${loginDTO}">
-	            ID<br>
-	            <input type="text" th:field="*{loginId}"/>
-	            <p th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}">Incorrect data!</p>
-	            <br>
-	            PW<br>
-	            <input type="text" th:field="*{loginPw}"/>
-	            <p th:if="${#fields.hasErrors('loginPw')}" th:errors="*{loginPw}">Incorrect data!</p>
-	            <br>
-	            <input type="submit" value="LOGIN">
-	        </form>
-	    </div>
-	</div>
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<th:block layout:fragment="content">
+    <h1 th:text="${title}" id="title">알 수 없음</h1>
+    <div class="content-box" >
+        <form name="loginForm" id="loginForm" action="/login" method="post" th:object="${loginDTO}">
+            ID
+            <input type="text" th:field="*{loginId}" class="w3-input w3-border"/>
+            <p th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}">Incorrect data!</p>
+            PW
+            <input type="text" th:field="*{loginPw}" class="w3-input w3-border"/>
+            <p th:if="${#fields.hasErrors('loginPw')}" th:errors="*{loginPw}">Incorrect data!</p>
+            
+            <div class="btn_div">
+            	<button type="submit" class="w3-button w3-theme-d1 w3-margin-bottom">LOGIN</button>
+	            <a th:href="'/member/join'">
+	            	<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom">JOIN</button>
+	            </a>
+            </div>
+            
+        </form>
+    </div>
+</th:block>
 </html>

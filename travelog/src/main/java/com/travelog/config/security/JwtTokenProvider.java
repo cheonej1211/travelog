@@ -1,4 +1,5 @@
 package com.travelog.config.security;
+
 //import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import java.security.Key;
 import java.util.Arrays;
@@ -16,36 +17,42 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import com.travelog.domain.MemberRole;
+import com.travelog.login.controller.LoginController;
 import com.travelog.member.service.MemberService;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Component
+@Slf4j
 public class JwtTokenProvider {
-	
+
 	public static final String TOKEN_NAME = "token";
-	
-	//private String secretKey = "약오르지까꿍꿍까지르오약약오르지까꿍꿍까지르오약약오르지까꿍꿍까지르오약";
+
+	// private String secretKey = "약오르지까꿍꿍까지르오약약오르지까꿍꿍까지르오약약오르지까꿍꿍까지르오약";
 	@Value("${jwt.secret}")
 	private String secretKey;
 
 	// 토큰 유효시간 30분
 	private long tokenValidTime = 30 * 60 * 1000L;
 	private final MemberService memberService;
-	
+
 //	private final UserDetailsService userDetailsService;
 //	
 //	public JwtTokenProvider(@Lazy UserDetailsService userDetailsService) {
 //		this.userDetailsService = userDetailsService;
 //	}
-	
 
 	// 객체 초기화, secretKey를 Base64로 인코딩한다.
 	@PostConstruct
@@ -85,22 +92,38 @@ public class JwtTokenProvider {
 		String token = "";
 		if (request.getCookies() != null) {
 			token = Arrays.stream(request.getCookies())
-			        .filter(cookie -> cookie.getName().equals(JwtTokenProvider.TOKEN_NAME))
-			        .findFirst().map(Cookie::getValue)
-			        .orElse("");
+					.filter(cookie -> cookie.getName().equals(JwtTokenProvider.TOKEN_NAME)).findFirst()
+					.map(Cookie::getValue).orElse("");
 		}
 		return token;
 	}
 
-	// 토큰의 유효성 + 만료일자 확인
+	// 토큰의 유효성 확인
 	public boolean validateToken(String jwtToken) {
+
+		/*
+		 * try { Jws<Claims> claims =
+		 * Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(jwtToken
+		 * ); return !claims.getBody().getExpiration().before(new Date()); } catch
+		 * (Exception e) { return false; }
+		 */
+		
 		try {
-			Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(jwtToken);
-			return !claims.getBody().getExpiration().before(new Date());
-		} catch (Exception e) {
-			return false;
+			Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(jwtToken);
+			return true;
+		} catch (SignatureException ex) {
+			log.error("Invalid JWT signature");
+		} catch (MalformedJwtException ex) {
+			log.error("Invalid JWT token");
+		} catch (ExpiredJwtException ex) {
+			log.error("Expired JWT token");
+		} catch (UnsupportedJwtException ex) {
+			log.error("Unsupported JWT token");
+		} catch (IllegalArgumentException ex) {
+			log.error("JWT claims string is empty.");
 		}
+		
+		return false;
 	}
 
-	
 }

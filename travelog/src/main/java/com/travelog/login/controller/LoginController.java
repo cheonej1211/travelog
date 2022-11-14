@@ -1,8 +1,12 @@
 package com.travelog.login.controller;
 
+import java.security.Principal;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,12 +33,15 @@ public class LoginController {
 	private final MemberRepository memberRepository;
 	private final BCryptPasswordEncoder passwordEncoder;
 	
-	private final String TITLE = "로그인";
+	private final String TITLE = "L O G I N";
 
 	@GetMapping("/sec")
-	public String sec(Model model) {
+	public String sec(Principal principal, Model model) {
 		log.info("성공");
 		model.addAttribute("title", TITLE);
+		//Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		//Member member = (Member) authentication.getPrincipal();
+		model.addAttribute("username", principal.getName());
 		return "travelog/security_test";
 	}
 	
@@ -48,8 +55,8 @@ public class LoginController {
 
 	@PostMapping(value="/login")
 	public String loginAction(Model model, @Validated LoginDTO loginDTO, 
-			Errors errors, BindingResult bindingResult, HttpServletResponse response) throws IllegalArgumentException{
-
+			Errors errors, BindingResult bindingResult, HttpServletResponse response){
+		log.info("로그인 시작");
 		Member member = memberRepository.findByLoginId(loginDTO.getLoginId()).orElse(null);
 		
     	if (member == null) {
@@ -64,8 +71,7 @@ public class LoginController {
             model.addAttribute("title", TITLE);
             return "travelog/login";
         }else{
-        	String token = null;
-        	token = jwtTokenProvider.createToken(member.getLoginId(), member.getRole());
+        	String token = jwtTokenProvider.createToken(member.getLoginId(), member.getRole());
         	Cookie cookie = new Cookie("token",token);
         	cookie.setPath("/");
             cookie.setMaxAge(Integer.MAX_VALUE);

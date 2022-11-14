@@ -3,6 +3,13 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  thymeleaf:
+      cache: false
+      mode: HTML
+      encoding: UTF-8
+      check-template-location: true
+      prefix: classpath:/templates/
+      suffix: .html
   security:
     user:
       name: user
