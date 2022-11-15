@@ -46,8 +46,7 @@ i{font-style:normal;}
 :-moz-placeholder{color:#77787b;font-size:12px;font-weight:400;letter-spacing:-1px;}/* Firefox 18- */
 
 
-
-/**enroll**/
-#title{color: red;}
-.wrap{width: 800px; margin: 0 auto; padding: 50px;}
-.content-box{width: 100%; padding: 20px; border: 1px solid #666;}
+.w3-container{margin-top:80px;}
+#title{text-align: center; font-family: "Raleway", Arial, Helvetica, sans-serif;}
+.btn_div{padding: 10px 0;}
+.error_messege{padding-left: 2px; color: red; font-size: 13px;}

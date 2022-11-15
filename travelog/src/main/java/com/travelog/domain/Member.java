@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -18,6 +19,7 @@ import javax.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.travelog.member.vo.MemberDTO;
 
@@ -58,6 +60,7 @@ public class Member implements UserDetails{
     List<TravelMaster> travelMaster = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     private MemberRole role; //USER, ADMIN
+    private String provider; //NAVER, KAKAO, GOOGLE
     
     
     /*
@@ -76,7 +79,7 @@ public class Member implements UserDetails{
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return null;
+		return loginId;
 	}
 	@Override
 	public boolean isAccountNonExpired() {
@@ -105,7 +108,7 @@ public class Member implements UserDetails{
 	 */
 	@Builder
     public Member(String loginId, String loginPw, String name, String nick, String mobile, String email, String birth
-    		,Gender gender, MemberStatus memberStatus, MemberRole role, EntityInfo entityInfo, LocalDateTime lastLogin, int agree ) {
+    		,Gender gender, MemberStatus memberStatus, MemberRole role, EntityInfo entityInfo, LocalDateTime lastLogin, int agree, String provider) {
         this.loginId = loginId;
         this.loginPw = loginPw;
         this.name = name;
@@ -119,6 +122,7 @@ public class Member implements UserDetails{
         this.entityInfo = entityInfo;
         this.lastLogin = lastLogin;
         this.agree = agree;
+        this.provider = provider;
     }
 
     public static Member createMember(MemberDTO newMember, PasswordEncoder passwordEncoder) {
@@ -148,7 +152,5 @@ public class Member implements UserDetails{
         
         return member;
     }
-	 
-    
     
 }

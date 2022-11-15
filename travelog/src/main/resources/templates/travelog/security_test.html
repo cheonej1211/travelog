@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Travelog</title>
-    <link rel="stylesheet" type="text/css" th:href="'/css/style.css'"/>
-</head>
-<body>
-	<div class="wrap">
-	    from <h1 th:text="${title}" id="title"></h1>
-	</div>
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<th:block layout:fragment="content">
+    From <span th:text="${title}" id="title"></span><br>
+    <span th:text="${username}"></span> 님, 반갑습니다.<br>
+    <a th:href="'/logout'"><input type="button" value="로-그-아-웃"/></a>
+</th:block>
 </html>
