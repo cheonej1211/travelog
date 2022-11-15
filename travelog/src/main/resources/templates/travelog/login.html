@@ -14,14 +14,26 @@
             <p th:if="${#fields.hasErrors('loginPw')}" th:errors="*{loginPw}" class="error_messege">Incorrect data!</p>
             
             <div class="btn_div">
-            	<button type="submit" class="w3-button w3-theme-d1 w3-margin-bottom">LOGIN</button>
-	            <a th:href="'/member/join'">
-	            	<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom">JOIN</button>
-	            </a>
-	            <a th:href="'/oauth2/authorization/naver'">
-	            	<!--<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom">NAVER LOGIN</button>-->
-	            	<img th:src="@{/images/naver_login_btn.png}"/>
-	            </a>
+            	<ul class="btn_ul">
+            		<li>
+            			<button type="submit" class="w3-button w3-theme-d1 w3-margin-bottom">LOGIN</button>
+            		</li>
+            		<li>
+            			<a th:href="'/member/join'">
+			            	<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom">JOIN</button>
+			            </a>
+            		</li>
+            	</ul> 
+            </div>
+            <div class="btn_div">
+            	<ul class="btn_ul">
+            		<li>
+            			<a th:href="'/oauth2/authorization/naver'">
+			            	<!--<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom">NAVER LOGIN</button>-->
+			            	<div class="social_login_btn_box"><img th:src="'/images/naver_login_btn.png'" /></div>
+			            </a>
+            		</li>
+            	</ul>
             </div>
             
         </form>

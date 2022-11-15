@@ -1,12 +1,12 @@
 @charset "utf-8";
 
 /**Reset**/
-html,body{margin:0;padding:0;height:100%;}
+/*html,body{margin:0;padding:0;height:100%;}
 body{font:16px/1.5 NanumSquareRound, Malgun Gothic, Dotum, Gulim, 'AppleGothic', sans-serif;color:#3e3e3e;letter-spacing:-0.025em;word-break:keep-all;}
 dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,tbody,tfoot,thead,th,td{margin:0;padding:0}
 h1,h2,h3,h4,h5,h6{font-weight:700;font-size:100%}
 *{font-weight:700;letter-spacing:-0.025em;}
-table{width:100%;table-layout:fixed;border-spacing:0;/* border-collapse:separate; */border-spacing:0}
+table{width:100%;table-layout:fixed;border-spacing:0; border-collapse:separate;border-spacing:0}
 ol,ul,li{list-style:none}
 em{font-style:normal}
 img,fieldset{border:0}
@@ -38,15 +38,21 @@ iframe{border:0}
 area{border:0;outline:0}
 figure{padding:0;margin:0;}
 i{font-style:normal;}
-*{box-sizing:border-box;-webkit-box-sizing:border-box;-o-box-sizing:border-box;-moz-box-sizing:border-box;}
+*{box-sizing:border-box;-webkit-box-sizing:border-box;-o-box-sizing:border-box;-moz-box-sizing:border-box;}*/
 
 ::-webkit-input-placeholder{color:#77787b;font-size:12px;font-weight:400;letter-spacing:-1px;}/* Chrome/Opera/Safari */
 ::-moz-placeholder{color:#77787b;font-size:12px;font-weight:400;letter-spacing:-1px;}/* Firefox 19+ */
 :-ms-input-placeholder{color:#77787b;font-size:12px;font-weight:400;letter-spacing:-1px;}/* IE 10+ */
 :-moz-placeholder{color:#77787b;font-size:12px;font-weight:400;letter-spacing:-1px;}/* Firefox 18- */
 
-
+a{display:inline-block;color:inherit;text-decoration:none;}
+a:active, a:hover{text-decoration:none;outline:none;}
+ol,ul,li{list-style:none; padding:0; margin:0;}
 .w3-container{margin-top:80px;}
 #title{text-align: center; font-family: "Raleway", Arial, Helvetica, sans-serif;}
-.btn_div{padding: 10px 0;}
+.btn_div{padding-top: 10px; }
 .error_messege{padding-left: 2px; color: red; font-size: 13px;}
+.btn_ul{width: 100%; overflow: hidden;}
+.btn_ul li {float:right; margin-left: 5px;}
+.social_login_btn_box{width:100%;}
+img{width:100%;}
