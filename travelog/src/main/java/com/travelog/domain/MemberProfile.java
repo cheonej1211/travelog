@@ -15,6 +15,7 @@ public class MemberProfile {
         return Member.builder()
                      .name(name)
                      .email(email)
+                     .loginId(email)
                      .provider(provider)
                      .build();
     }

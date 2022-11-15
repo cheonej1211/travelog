@@ -11,6 +11,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.travelog.config.oAuth.OAuthService;
+import com.travelog.config.oAuth.OAuthSuccessHandler;
 import com.travelog.config.security.JwtAuthenticationFilter;
 import com.travelog.config.security.JwtTokenProvider;
 
@@ -22,6 +23,7 @@ public class SecurityConfig {
 
 	private final JwtTokenProvider jwtTokenProvider;
 	private final OAuthService oAuthService;
+	private final OAuthSuccessHandler oAuthSuccessHandler;
 
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
@@ -51,19 +53,18 @@ public class SecurityConfig {
 						UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
 
-				.and().formLogin().loginPage("/login").loginProcessingUrl("/sec")
-				.failureUrl("/login?error=true")
-				
-				.and()
-                .oauth2Login() //OAuth2 로그인 설정 시작점
-                .defaultSuccessUrl("/oauth/loginInfo", true) //OAuth2 성공시 redirect
-                .userInfoEndpoint() //OAuth2 로그인 성공 이후 사용자 정보를 가져올 때 설정 담당
-                .userService(oAuthService) //OAuth2 로그인 성공 시, 작업을 진행할 
+				// .and().formLogin().loginPage("/login").loginProcessingUrl("/sec").failureUrl("/login?error=true")
 
-		/*
-		 * .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login")
-		 * .deleteCookies(JwtTokenProvider.TOKEN_NAME)
-		 */;
+				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/login")
+				.deleteCookies(JwtTokenProvider.TOKEN_NAME)
+
+				.and() // 추가
+				.oauth2Login() // OAuth2기반의 로그인인 경우
+				.loginPage("/login").defaultSuccessUrl("/login").successHandler(oAuthSuccessHandler).failureUrl("/login")
+				.userInfoEndpoint() // 로그인 성공 후 사용자정보를 가져온다
+				.userService(oAuthService) // 사용자정보를 처리할 때 사용한다
+
+		;
 		return http.build();
 	}
 
