@@ -48,11 +48,30 @@ i{font-style:normal;}
 a{display:inline-block;color:inherit;text-decoration:none;}
 a:active, a:hover{text-decoration:none;outline:none;}
 ol,ul,li{list-style:none; padding:0; margin:0;}
-.w3-container{margin-top:80px;}
-#title{text-align: center; font-family: "Raleway", Arial, Helvetica, sans-serif;}
+
+.w3-bar{height: 50px; overflow:hidden;}
+#first_logo_box img{height: 35px; width: 35px;}
+#first_logo{display:inline-block; font-size: 20px; font-family: 'Lobster', cursive;}
+
+#login_logo_box{width: 50%; margin: 0 auto; text-align: center;}
+#login_logo_box img{height: 50px; width: 50px;}
+#login_logo{display:inline-block; font-size: 45px; font-family: 'Lobster', cursive; margin: 0 !important;}
+
+.w3-content{/*margin-top:100px;margin-bottom:130px;*/ min-height: calc(100vh - 50px); padding-top:100px !important;padding-bottom:130px !important;}
+.title{text-align: center; font-family: "Raleway", Arial, Helvetica, sans-serif;}
 .btn_div{padding-top: 10px; }
 .error_messege{padding-left: 2px; color: red; font-size: 13px;}
-.btn_ul{width: 100%; overflow: hidden;}
-.btn_ul li {float:right; margin-left: 5px;}
-.social_login_btn_box{width:100%;}
+.btn_ul{width: 100%; padding: 0; margin:0;}
+.btn_ul li{width: 100%; margin-bottom: 5px;}
+.btn_ul li button, .btn_ul li a{width: 100%; margin: 0 !important;}
+.social_login_btn_box{width:40%; margin: 0 auto;}
 img{width:100%;}
+.w3-card{padding: 10px;}
+@media (min-width: 601px){
+	.w3-top{top: 0;}
+}
+@media (max-width:600px){
+	.w3-top{bottom: 0 !important;}
+	.w3-content{padding-top:50px !important;}
+	#first_logo{display: none;}
+}
