@@ -64,7 +64,7 @@ ol,ul,li{list-style:none; padding:0; margin:0;}
 .btn_ul{width: 100%; padding: 0; margin:0;}
 .btn_ul li{width: 100%; margin-bottom: 5px;}
 .btn_ul li button, .btn_ul li a{width: 100%; margin: 0 !important;}
-.social_login_btn_box{width:40%; margin: 0 auto;}
+.social_login_btn_box{width:220px; margin: 0 auto;}
 img{width:100%;}
 .w3-card{padding: 10px;}
 @media (min-width: 601px){
@@ -74,4 +74,7 @@ img{width:100%;}
 	.w3-top{bottom: 0 !important;}
 	.w3-content{padding-top:50px !important;}
 	#first_logo{display: none;}
+	.w3-row-padding{padding:0 !important;}
+	.w3-col{padding:0 !important;}
+	.w3-margin {margin-left: 0 !important;margin-right: 0 !important;}
 }

@@ -59,6 +59,11 @@ public class LoginController {
 		log.info("로그인 시작");
 		Member member = memberRepository.findByLoginId(loginDTO.getLoginId()).orElse(null);
 		
+		// 소셜 회원일 경우 로그인 아이디 없음 처리
+		if (member.getProvider() != null) {
+			member = null;
+		}
+		
     	if (member == null) {
     		bindingResult.rejectValue("loginId", "key","아이디가 존재하지 않습니다.");		
 		}else {
