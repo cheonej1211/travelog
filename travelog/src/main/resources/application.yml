@@ -22,7 +22,7 @@ spring:
             client-secret: Oqb_FP1_gc
             redirect-uri: http://localhost:8080/login/oauth2/code/naver
             authorization-grant-type: authorization_code
-            scope: name,email
+            scope: name,email,gender,birthday,nickname,birthyear
             client-name: Naver
           kakao:
             client-id: 1c562d318d424661092aa455232c5a3c
@@ -30,7 +30,7 @@ spring:
             redirect-uri: http://localhost:8080/login/oauth2/code/kakao
             client-authentication-method: POST
             authorization-grant-type: authorization_code
-            scope: profile_nickname,account_email
+            scope: profile_nickname,account_email,gender,birthday,birthyear
             client-name: Kakao
         provider:
           naver:
