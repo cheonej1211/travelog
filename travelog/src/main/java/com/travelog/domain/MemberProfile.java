@@ -20,6 +20,7 @@ public class MemberProfile {
                      .email(email)
                      .loginId(email)
                      .provider(provider)
+                     .gender(Gender.findByGenderCode(gender))
                      .build();
     }
 }
