@@ -5,14 +5,16 @@ import java.util.Collections;
 import java.util.List;
 
 public enum Gender {
-	FEMALE(Arrays.asList("female","F")), MALE(Arrays.asList("male","M")),
-	EMPTY(Collections.EMPTY_LIST);
+	FEMALE("여성", Arrays.asList("female","F")), 
+	MALE("남성", Arrays.asList("male","M")),
+	EMPTY("알수없음", Collections.EMPTY_LIST);
 	
 	private String gender;
 	private List<String> asList;
 
-	Gender(List<String> asList) {
+	Gender(String gender, List<String> asList) {
 		// TODO Auto-generated constructor stub
+		this.gender = gender;
 		this.asList = asList;
 	}
 	
@@ -28,5 +30,8 @@ public enum Gender {
 		return asList.stream().anyMatch(genderCode -> genderCode.equals(code));
 	}
 	
+	public String getGender() {
+		return gender;
+	}
 	
 }
