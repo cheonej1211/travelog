@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,6 +34,7 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 @Table(name="tr_member")
+@EntityListeners(AuditingEntityListener.class)
 public class Member implements UserDetails{
 	
 	@Id @GeneratedValue
@@ -151,6 +154,12 @@ public class Member implements UserDetails{
                 .build();
         
         return member;
+    }
+    
+    public Member update(String name, String email) {
+        this.name = name;
+        this.email = email;
+        return this;
     }
     
 }

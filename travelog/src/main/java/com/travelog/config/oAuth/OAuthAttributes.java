@@ -22,7 +22,7 @@ public enum OAuthAttributes {
         memberProfile.setName((String) response.get("name"));
         memberProfile.setNick((String) response.get("nickname"));
         memberProfile.setGender((String) response.get("gender"));
-        memberProfile.setBirthday((String) response.get("birthyear")+(String) response.get("birthday"));
+        memberProfile.setBirth((String) response.get("birthyear")+"-"+(String) response.get("birthday"));
         return memberProfile;
     }),
 
@@ -31,13 +31,14 @@ public enum OAuthAttributes {
         Map<String, Object> kakaoAccount = (Map<String, Object>)attributes.get("kakao_account");
         // kakao_account안에 또 profile이라는 JSON객체가 있다. (nickname)
         Map<String, Object> kakaoProfile = (Map<String, Object>)kakaoAccount.get("profile");
-
+        System.out.println(kakaoAccount);
+        System.out.println(kakaoAccount);
         MemberProfile memberProfile = new MemberProfile();
         memberProfile.setEmail((String) kakaoAccount.get("email"));
         memberProfile.setName((String) kakaoProfile.get("nickname"));
         memberProfile.setNick((String) kakaoProfile.get("nickname"));
         memberProfile.setGender((String) kakaoAccount.get("gender"));
-        memberProfile.setBirthday((String) kakaoAccount.get("birthyear")+(String) kakaoAccount.get("birthday"));
+        memberProfile.setBirth((String) kakaoAccount.get("birthyear")+"-"+(String) kakaoAccount.get("birthday"));
         return memberProfile;
     });
 	

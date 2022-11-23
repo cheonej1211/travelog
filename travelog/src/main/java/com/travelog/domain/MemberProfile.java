@@ -11,7 +11,7 @@ public class MemberProfile {
     private String provider;
     private String nick;
     private String gender;
-    private String birthday;
+    private String birth;
 
     public Member toMember() {
         return Member.builder()
@@ -20,7 +20,9 @@ public class MemberProfile {
                      .email(email)
                      .loginId(email)
                      .provider(provider)
+                     .birth(birth)
                      .gender(Gender.findByGenderCode(gender))
+                     .entityInfo(new EntityInfo())
                      .build();
     }
 }
