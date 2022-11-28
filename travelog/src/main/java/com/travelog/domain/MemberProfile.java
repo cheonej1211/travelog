@@ -1,5 +1,7 @@
 package com.travelog.domain;
 
+import java.time.LocalDateTime;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +16,12 @@ public class MemberProfile {
     private String birth;
 
     public Member toMember() {
+    	
+    	EntityInfo entityInfo = new EntityInfo();
+    	LocalDateTime localDateTime = LocalDateTime.now();
+    	entityInfo.setRegisterId(email);
+    	entityInfo.setUpdateId(email);
+    	
         return Member.builder()
                      .name(name)
                      .nick(nick)
@@ -23,6 +31,7 @@ public class MemberProfile {
                      .birth(birth)
                      .gender(Gender.findByGenderCode(gender))
                      .entityInfo(new EntityInfo())
+                     .lastLogin(localDateTime)
                      .build();
     }
 }

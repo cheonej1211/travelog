@@ -21,10 +21,10 @@ import lombok.Setter;
 public class EntityInfo {
 	
 	@CreatedDate
-	@Column(name="register_date")
+	@Column(name="register_date", nullable = false, updatable = false)
 	private LocalDateTime registerDate;
 	@CreatedBy
-	@Column(name="register_id")
+	@Column(name="register_id", nullable = false, updatable = false)
 	private String registerId;
 	@LastModifiedDate
 	@Column(name="update_date")

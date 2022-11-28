@@ -57,7 +57,8 @@ public class LoginController {
 	public String loginAction(Model model, @Validated LoginDTO loginDTO, 
 			Errors errors, BindingResult bindingResult, HttpServletResponse response){
 		log.info("로그인 시작");
-		Member member = memberRepository.findByLoginId(loginDTO.getLoginId()).orElse(null);
+		// 소셜 회원 아닌 회원 중 loginId 조회
+		Member member = memberRepository.findByLoginIdAndProvider(loginDTO.getLoginId(),null).orElse(null);
 		
 		// 소셜 회원일 경우 로그인 아이디 없음 처리
 		if (member.getProvider() != null) {
